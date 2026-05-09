@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Sesión {{ object.date }} · RoutineTracker{% endblock %}
+
+{% block content %}
+  <div class="space-y-6">
+    <div class="rounded-3xl bg-slate-900 p-6 shadow-lg ring-1 ring-slate-700/40">
+      <h1 class="text-3xl font-semibold text-white">Sesión {{ object.date }}</h1>
+      <p class="mt-3 text-slate-300">Rutina: {{ object.routine.name if object.routine else 'Ad-hoc' }}</p>
+      <p class="text-slate-300">Volumen: {{ object.total_volume }} kg · Completada: {{ object.is_completed|yesno:'Sí,No' }}</p>
+      <p class="mt-4 text-slate-300">{{ object.notes|default:'Sin anotaciones' }}</p>
+    </div>
+    <div class="rounded-3xl bg-slate-900 p-6 shadow-lg ring-1 ring-slate-700/40">
+      <h2 class="text-xl font-semibold text-white">Series registradas</h2>
+      <div class="mt-4 space-y-3">
+        {% for set in object.sets.all %}
+          <div class="rounded-2xl bg-slate-950 p-4">
+            <p class="font-semibold text-white">{{ set.exercise.name }} · Serie {{ set.set_number }}</p>
+            <p class="text-slate-400">Reps: {{ set.reps }} · Peso: {{ set.weight }} kg · Volumen: {{ set.volume }}</p>
+          </div>
+        {% empty %}
+          <p class="text-slate-400">No se registraron series en esta sesión.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

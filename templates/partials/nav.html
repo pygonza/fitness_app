@@ -1,0 +1,19 @@
+<nav class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <a href="{% url 'dashboard' %}" class="text-xl font-semibold text-white">RoutineTracker</a>
+    <div class="flex items-center gap-3 text-slate-300">
+      <button @click="toggleTheme()" class="rounded-full bg-slate-800 px-3 py-2 text-sm hover:bg-slate-700">Modo</button>
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="hover:text-white">Dashboard</a>
+        <a href="{% url 'workouts:list' %}" class="hover:text-white">Sesiones</a>
+        <a href="{% url 'routines:list' %}" class="hover:text-white">Rutinas</a>
+        <a href="{% url 'exercises:list' %}" class="hover:text-white">Ejercicios</a>
+        <a href="{% url 'users:profile' %}" class="hover:text-white">Perfil</a>
+        <a href="{% url 'logout' %}" class="rounded-md bg-emerald-500 px-3 py-2 text-sm text-slate-950 hover:bg-emerald-400">Salir</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="hover:text-white">Login</a>
+        <a href="{% url 'users:signup' %}" class="rounded-md bg-emerald-500 px-3 py-2 text-sm text-slate-950 hover:bg-emerald-400">Registro</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

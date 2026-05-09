@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Login · RoutineTracker{% endblock %}
+
+{% block content %}
+  <div class="mx-auto max-w-md rounded-3xl bg-slate-900 p-8 shadow-2xl ring-1 ring-slate-700/40">
+    <h1 class="text-2xl font-semibold text-white">Iniciar sesión</h1>
+    <form method="post" class="mt-6 space-y-5">
+      {% csrf_token %}
+      {{ form.username.label_tag }}
+      {{ form.username|add_class:'w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100' }}
+      {{ form.password.label_tag }}
+      {{ form.password|add_class:'w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100' }}
+      <button type="submit" class="w-full rounded-full bg-emerald-500 px-4 py-3 font-semibold text-slate-950 hover:bg-emerald-400">Entrar</button>
+    </form>
+    <p class="mt-4 text-sm text-slate-400">¿No tienes una cuenta? <a class="text-emerald-400 hover:text-emerald-300" href="{% url 'users:signup' %}">Regístrate</a></p>
+  </div>
+{% endblock %}

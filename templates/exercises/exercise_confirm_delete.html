@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar ejercicio · RoutineTracker{% endblock %}
+
+{% block content %}
+  <div class="mx-auto max-w-lg rounded-3xl bg-slate-900 p-8 shadow-2xl ring-1 ring-slate-700/40">
+    <h1 class="text-2xl font-semibold text-white">Eliminar ejercicio</h1>
+    <p class="mt-4 text-slate-300">¿Estás seguro de que deseas eliminar el ejercicio "{{ object.name }}"? Esta acción no se puede deshacer.</p>
+    <form method="post" class="mt-6 flex gap-3">
+      {% csrf_token %}
+      <button type="submit" class="rounded-full bg-rose-500 px-5 py-3 font-semibold text-slate-950 hover:bg-rose-400">Eliminar</button>
+      <a href="{% url 'exercises:detail' object.pk %}" class="rounded-full bg-slate-800 px-5 py-3 text-slate-200 hover:bg-slate-700">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

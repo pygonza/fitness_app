@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Rutinas · RoutineTracker{% endblock %}
+
+{% block content %}
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h1 class="text-2xl font-semibold text-white">Rutinas</h1>
+      <a href="{% url 'routines:create' %}" class="rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-400">Crear rutina</a>
+    </div>
+    <div class="space-y-4">
+      {% for routine in object_list %}
+        <article class="rounded-3xl bg-slate-900 p-6 shadow-sm ring-1 ring-slate-700/40">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <a href="{% url 'routines:detail' routine.pk %}" class="text-xl font-semibold text-white">{{ routine.name }}</a>
+              <p class="mt-1 text-slate-400">{{ routine.description|default:'Sin descripción' }}</p>
+            </div>
+            <div class="flex gap-3">
+              <a href="{% url 'routines:edit' routine.pk %}" class="rounded-full bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Editar</a>
+              <a href="{% url 'routines:delete' routine.pk %}" class="rounded-full bg-rose-500 px-4 py-2 text-sm hover:bg-rose-400">Eliminar</a>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <p class="text-slate-400">No tienes rutinas todavía. Comienza creando tu primera rutina.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

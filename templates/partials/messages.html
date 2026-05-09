@@ -1,0 +1,9 @@
+{% if messages %}
+  <div class="space-y-2 pb-4">
+    {% for message in messages %}
+      <div class="rounded-xl border px-4 py-3 text-sm shadow-sm {% if message.tags %}border-emerald-500 bg-slate-900 text-emerald-200{% else %}border-slate-700 bg-slate-900 text-slate-100{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

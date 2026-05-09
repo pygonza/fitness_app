@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Sesiones · RoutineTracker{% endblock %}
+
+{% block content %}
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h1 class="text-2xl font-semibold text-white">Sesiones de entrenamiento</h1>
+      <a href="{% url 'workouts:create' %}" class="rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-400">Nueva sesión</a>
+    </div>
+    <div class="space-y-4">
+      {% for session in object_list %}
+        <article class="rounded-3xl bg-slate-900 p-6 shadow-sm ring-1 ring-slate-700/40">
+          <a href="{% url 'workouts:detail' session.pk %}" class="text-xl font-semibold text-white">{{ session.date }}</a>
+          <p class="mt-2 text-slate-400">Volumen: {{ session.total_volume }} kg · Rutina: {{ session.routine.name if session.routine else 'Ad-hoc' }}</p>
+        </article>
+      {% empty %}
+        <p class="text-slate-400">No has registrado sesiones todavía.</p>
+      {% endfor %}
+    </div>
+    {% if is_paginated %}
+      <div class="flex items-center justify-between text-sm text-slate-400">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}" class="hover:text-white">Anterior</a>
+        {% endif %}
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="hover:text-white">Siguiente</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }} · Ejercicio{% endblock %}
+
+{% block content %}
+  <div class="space-y-6">
+    <div class="rounded-3xl bg-slate-900 p-6 shadow-lg ring-1 ring-slate-700/40">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 class="text-3xl font-semibold text-white">{{ object.name }}</h1>
+          <p class="mt-1 text-slate-400">{{ object.get_muscle_group_display }} · {{ object.get_type_display }}</p>
+        </div>
+        <div class="flex gap-3">
+          <a href="{% url 'exercises:edit' object.pk %}" class="rounded-full bg-slate-800 px-4 py-2 text-sm hover:bg-slate-700">Editar</a>
+          <a href="{% url 'exercises:delete' object.pk %}" class="rounded-full bg-rose-500 px-4 py-2 text-sm hover:bg-rose-400">Eliminar</a>
+        </div>
+      </div>
+      <p class="mt-4 text-slate-300">{{ object.description|default:'Sin descripción' }}</p>
+    </div>
+  </div>
+{% endblock %}

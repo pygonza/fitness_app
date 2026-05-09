@@ -9,7 +9,11 @@
       {% if last_session %}
         <p class="mt-3 text-2xl font-semibold text-white">{{ last_session.date }}</p>
         <p class="mt-2 text-slate-300">Volumen total: {{ last_session.total_volume }} kg</p>
-        <p class="mt-2 text-slate-300">Rutina: {{ last_session.routine.name if last_session.routine else 'Ad-hoc' }}</p>
+        {% if last_session.routine %}
+          <p class="mt-2 text-slate-300">Rutina: {{ last_session.routine.name }}</p>
+        {% else %}
+          <p class="mt-2 text-slate-300">Rutina: Ad-hoc</p>
+        {% endif %}
       {% else %}
         <p class="mt-3 text-slate-300">Aún no has registrado una sesión.</p>
       {% endif %}
@@ -25,7 +29,11 @@
         {% for session in recent_sessions %}
           <li class="rounded-2xl border border-slate-800 bg-slate-950 p-4">
             <a href="{% url 'workouts:detail' session.pk %}" class="block text-base font-semibold text-white">{{ session.date }}</a>
-            <p class="text-slate-400">Volumen: {{ session.total_volume }} kg · {{ session.routine.name if session.routine else 'Ad-hoc' }}</p>
+            {% if session.routine %}
+              <p class="text-slate-400">Volumen: {{ session.total_volume }} kg · {{ session.routine.name }}</p>
+            {% else %}
+              <p class="text-slate-400">Volumen: {{ session.total_volume }} kg · Ad-hoc</p>
+            {% endif %}
           </li>
         {% empty %}
           <li class="text-slate-400">No hay sesiones registradas aún.</li>
